@@ -6,7 +6,7 @@ const { validateToken } = require('../middleware/auth');
 const { nanoid } = require('nanoid'); //unika användar-id
 
 
-const postNotes = async(event,context)=>{
+const postNotes = async (event, context) => {
     if (event?.error && event?.error === '401')
     return sendResponse(401, {success: false, message: 'Invalid token'});
 
