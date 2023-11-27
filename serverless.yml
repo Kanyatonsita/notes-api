@@ -23,25 +23,25 @@ functions:
     handler: functions/getNotes/index.handler
     events: 
       - httpApi:
-          path: '/api/notes'
+          path: '/notes'
           method: GET
   postNotes:
      handler: functions/postNotes/index.handler
      events: 
       - httpApi:
-          path: '/api/notes'
+          path: '/notes'
           method: POST
   deleteNotes:
     handler: functions/deleteNotes/index.handler
     events:
       - httpApi:
-          path: '/api/notes'
+          path: '/notes'
           method: DELETE
   updateNotes:
     handler: functions/updateNotes/index.handler
     events:
       - httpApi:
-          path: '/api/notes'
+          path: '/notes'
           method: PUT
   signUp:
      handler: functions/signUp/index.handler
