@@ -9,32 +9,34 @@ const updateNotes = async(event, context) => {
     if(event?.error && event?.error === '401')
     return sendResponse(401, {success: false, message: 'invalid token'});
 
-    const requestBody = JSON.parse(event.body)
-    const {id, title, text} = requestBody
-
-    const {Items} = await db.scan({
-        TableName: ' notes-db'
-    }).promise()
-
-    const updateNote = Items.find((note) => note.id === id)
-
-    const createdAt = new Date().toISOString;
-    const modifiedAt = `${createdAt}` 
+    const requestBody = JSON.parse(event.body);
+    const { id, title, text } = requestBody
 
     try {
+
+        const {Items} = await db.scan({
+            TableName: 'notes-db'
+        }).promise();
+    
+        const updateNote = Items.find((notes) => notes.id === id);
+    
+        const createdAt = new Date().toISOString();
+        const modifiedAt = `${createdAt}` 
+
+
         await db.update({
             TableName: 'notes-db',
             Key : { id: updateNote.id },
             ReturnValues: 'ALL_NEW',
-            UpdateExpression: 'set #noteText = :text, #noteTitle = :title, modifiedAt = :modifiedAt',
+            UpdateExpression: 'set #notetext = :text, #notetitle = :title, modifiedAt = :modifiedAt',
             ExpressionAttributeValues: {
                 ':text' : text,
                 ':title' : title,
-                ':modifiedAt' : modifiedAt
+                ':modifiedAt' : modifiedAt,
             },
             ExpressionAttributeNames: {
-                '#noteText' : 'text',
-                '#noteTitle' : 'title'
+                '#notetext' : 'text',
+                '#notetitle' : 'title',
 
             }
         }).promise();

@@ -26,7 +26,7 @@ const postNotes = async (event, context) => {
         })
     }
 
-    const createdAt = new Date().toISOString;
+    const createdAt = new Date().toISOString();
     notes.id = nanoid();
     notes.createdAt = `${createdAt}`;
     notes.modifiedAt = createdAt

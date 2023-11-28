@@ -9,17 +9,17 @@ const deleteNotes = async(event, context) => {
     if(event?.error && event?.error === '401')
     return sendResponse(401, {success: false, message: 'invalid token'});
 
-    const requestBody = JSON.parse(event.body)
+    const requestBody = JSON.parse(event.body);
     const {id} = requestBody
-
-    const {Items} = await db.scan({
-        TableName: ' notes-db'
-    }).promise()
-
-    const noteForDelete = Items.find((note) => note.id === id)
-
     
     try {
+
+        const {Items} = await db.scan({
+            TableName: 'notes-db'
+        }).promise();
+    
+        const noteForDelete = Items.find((notes) => notes.id === id);
+
         await db.delete({
             TableName: 'notes-db',
             Key : { id: noteForDelete.id }
