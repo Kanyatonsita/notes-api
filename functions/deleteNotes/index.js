@@ -25,7 +25,7 @@ const deleteNotes = async(event, context) => {
             Key : { id: noteForDelete.id }
         }).promise();
 
-        return sendResponse(200, { success: true });
+        return sendResponse(200, { success: true, message : 'note deleted' });
     } catch (error) {
         return sendResponse(500, { success: false, message : 'could not delete note'});
     }
