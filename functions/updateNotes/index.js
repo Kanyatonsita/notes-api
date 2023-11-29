@@ -19,6 +19,10 @@ const updateNotes = async(event, context) => {
         }).promise();
     
         const updateNote = Items.find((notes) => notes.id === id);
+
+        if(!updateNote) {
+            return sendResponse(404, {success: false, message : 'Note not found with this id!'});
+        }
     
         const createdAt = new Date().toISOString();
         const modifiedAt = `${createdAt}` 

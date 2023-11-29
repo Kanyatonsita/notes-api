@@ -20,6 +20,10 @@ const deleteNotes = async(event, context) => {
     
         const noteForDelete = Items.find((notes) => notes.id === id);
 
+        if(!noteForDelete) {
+            return sendResponse(404, {success: false, message : 'Note not found with this id!'});
+        }
+
         await db.delete({
             TableName: 'notes-db',
             Key : { id: noteForDelete.id }
