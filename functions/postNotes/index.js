@@ -13,17 +13,29 @@ const postNotes = async (event, context) => {
 
     const notes = JSON.parse(event.body);
 
+    if (!notes.title || !notes.text){
+        return sendResponse(400,{
+            success: false, message: 'Please try again!, you need to provide a text and a title'
+        });
+    }
+
+    if (Object.keys(notes).length > 2){
+        return sendResponse(400, {
+            success: false, message: 'Please try again!, only text and title are allowed'
+        });
+    }
+
     if (notes.title.length > 50){
         return sendResponse(400, {
-            success: false, message: 'title can\'t be longer than 50 chars '
-        })
+            success: false, message: 'Please write a shorter Title, title cannot be longer than 50 chars, try again!'
+        });
     }
 
     if (notes.text.length > 400){
         return sendResponse(400, {
             success: false, 
-            message: 'text can\'t be longer than 400 chars'
-        })
+            message: 'Please write a shorter Text, text cannot be longer than 400 chars, try again!'
+        });
     }
 
     const createdAt = new Date().toISOString();
